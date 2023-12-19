@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="robotIco.png" type="image/png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Movies</title>
+    <style>
+        .mainBox {
+            width: 98%;
+            height: 83vh;
+            margin-top: 10px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            border: 1px solid cadetblue;
+            margin-inline: auto !important;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        }
+
+        .contentBox {
+            padding: 5px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-row-gap: 40px;
+            grid-column-gap: 20px;
+            margin: auto !important;
+            padding: 30px !important;
+            border: 1px solid gray !important;
+            border-radius: 8px !important;
+            height: 90% !important;
+            width: 98% !important;
+            flex-direction: row !important;
+            overflow-y: scroll !important;
+        }
+
+        div.item {
+            max-width: 240px !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+            margin: auto !important;
+            height: 320px !important;
+            border-radius: 10px !important;
+            box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+            transition: all !important;
+            transition: 0.9s !important;
+        }
+
+        div.item:hover {
+            transform: scale(1.2) !important;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            z-index: 10;
+        }
+
+        .thumb,
+        .modThumb {
+            border: 2px solid gray !important;
+            border-radius: 10px !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            transition: all !important;
+            transition: 0.9s !important;
+        }
+
+        .modThumb:hover {
+            box-shadow: cyan 0px 0px 0px 3px;
+        }
+
+        .ribbon {
+            min-width: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 4px;
+            position: absolute !important;
+            left: 4px !important;
+            top: 18px !important;
+            text-align: center;
+            border-radius: 20px;
+            transform: rotate(-45deg);
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .ribbon1 {
+            min-width: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 4px;
+            position: absolute !important;
+            left: 50px !important;
+            top: 18px !important;
+            text-align: center;
+            border-radius: 20px;
+            transform: rotate(-45deg);
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .ribbon2 {
+            --f: 10px;
+            /* control the folded part*/
+            --r: 15px;
+            /* control the ribbon shape */
+            --t: 20px;
+            /* the top offset */
+
+            position: absolute;
+            inset: var(--t) calc(-1*var(--f)) auto auto;
+            padding: 0 10px var(--f) calc(10px + var(--r));
+            clip-path:
+                polygon(0 0,
+                    100% 0,
+                    100% calc(100% - var(--f)),
+                    calc(100% - var(--f)) 100%,
+                    calc(100% - var(--f)) calc(100% - var(--f)),
+                    0 calc(100% - var(--f)),
+                    var(--r) calc(50% - var(--f)/2));
+            background-color: #ff9800;
+            color: white;
+            box-shadow: 0 calc(-1*var(--f)) 0 inset #0005;
+        }
+
+
+        div.input-group {
+            max-width: 20% !important;
+            max-height: 15px !important;
+            margin-inline: 2px !important;
+        }
+
+        div.select {
+            max-width: 10% !important;
+            margin-inline: 2px !important;
+        }
+
+        .btn {
+            border-radius: 7px !important;
+            font-weight: bold !important;
+        }
+
+        .centerTxt {
+            text-align: center;
+        }
+
+        .modal-lg {
+            margin-top: -5px !important;
+            min-width: 80vw !important;
+            max-height: 80vh !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            overflow: hidden !important;
+        }
+
+        .details {
+            display: inline-flex;
+        }
+
+        a:link {
+            text-decoration: none;
+            font-weight: bold !important;
+        }
+
+        h6 {
+            font-weight: bold !important;
+            color: dodgerblue !important;
+        }
+
+        ::-webkit-scrollbar {
+            height: 5px;
+            width: 5px;
+            border-radius: 2px;
+            -webkit-border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #c8d0fa;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            background: #3496f1;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include("header") %>
+        <div class="mainBox">
+            <div class="contentBox">
+                <div class="select" style="position: relative;">
+                    <i class="bi bi-search" style="position: absolute; top: 5px; right: 15px;"></i>
+                    <input type="text" class="form-control border-right-0 border" id="searchbox" placeholder="Search Here...!" onkeyup="searchDiv()" />
+                </div>
+                <div class="select">
+                    <select class="form-select" id="rating" aria-label="Default select example" onchange="filter()">
+                        <option value="" selected>Rating</option>
+                        <% ratings.map((key)=>{ %>
+                            return <option value="<%=key%>">
+                                <%=key%>
+                            </option>;
+                            <%}) %>
+                    </select>
+                </div>
+                <div class="select">
+                    <select class="form-select" id="genre" aria-label="Default select example" onchange="filter()">
+                        <option value="" selected>Genre</option>
+                        <% genres.map((key)=>{ %>
+                            return <option value="<%=key%>">
+                                <%=key%>
+                            </option>;
+                            <%}) %>
+                    </select>
+                </div>
+                <div class="select">
+                    <select class="form-select" id="origin" aria-label="Default select example" onchange="filter()">
+                        <option value="" selected>Origin</option>
+                        <% origins.map((key)=>{ %>
+                            return <option value="<%=key%>">
+                                <%=key%>
+                            </option>;
+                            <%}) %>
+                    </select>
+                </div>
+                <div class="select">
+                    <select class="form-select" id="year" aria-label="Default select example" onchange="filter()">
+                        <option value="" selected>Year</option>
+                        <% years.map((key)=>{ %>
+                            return <option value="<%=key%>">
+                                <%=key%>
+                            </option>;
+                            <%}) %>
+                    </select>
+                </div>
+                <div class="select">
+                    <select class="form-select" id="language" aria-label="Default select example" onchange="filter()">
+                        <option value="" selected>Language</option>
+                        <% languages.map((key)=>{ %>
+                            return <option value="<%=key%>">
+                                <%=key%>
+                            </option>
+                            <%}) %>
+                    </select>
+                </div>
+                <div class="select">
+                    <select class="form-select" id="franchise" aria-label="Default select example" onchange="filter()">
+                        <option value="" selected>Franchise</option>
+                        <% franchise.map((key)=>{ %>
+                            return <option value="<%=key%>">
+                                <%=key%>
+                            </option>
+                            <%}) %>
+                    </select>
+                </div>
+                <div class="select">
+                    <p style="vertical-align: middle; font-size: 20px;"><strong>Listed : </strong>
+                        <label id="files">
+                            <%=moviesList.length%>
+                        </label>
+                    </p>
+                </div>
+            </div>
+            <div id="list" class="grid">
+                <% moviesList.map((file, i)=> { let data = JSON.stringify(file); %>
+                    <div class="item" id="<%=file.Name%>" onclick="showDetail('<%=data%>')">
+                        <!-- <a href="https://en.wikipedia.org/wiki/<%=file.Wikipedia%>" target="_blank"> -->
+                        <img class="thumb" src="Thumbnails/<%=file.Thumbnail%>" alt="<%=file.Name%>" />
+                        <!-- </a> -->
+                        <span class="ribbon">
+                            <i class="bi bi-star-fill" style="color: azure;"></i>
+                            <%=file.IMDB%>
+                        </span>
+                        <%if (file.Origin==="India" ) {%>
+                            <span class="ribbon2">
+                                <%=file.Origin%>
+                            </span>
+                            <%}%>
+                    </div>
+                    <% }); %>
+            </div>
+
+            <div class="modal fade modal-lg" id="movieModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title" id="title" style="display: flex; flex-direction: row;"></div>
+                            <button type="button" class="btn btn-outline-danger" onclick="CloseModel()"><i class="bi bi-x-square"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <h1 id="movieDesc"></h1>
+                        </div>
+                        <!-- <div class="modal-footer"> -->
+                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
+                        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <%- include("footer") %>
+</body>
+
+<script>
+
+    function searchDiv() {
+        var filter = document.getElementById("searchbox").value.toLowerCase();
+        var nodes = document.getElementsByClassName('item');
+        for (i = 0; i < nodes.length; i++) { nodes[i].style.display = nodes[i].id.toLowerCase().includes(filter) ? "block" : "none"; }
+    }
+
+    function filter() {
+        var filterby = {};
+        var rating = document.getElementById("rating").value;
+        rating != '' ? filterby.rating = rating : '';
+        var genre = document.getElementById("genre").value;
+        genre != '' ? filterby.genre = genre : '';
+        var origin = document.getElementById("origin").value;
+        origin != '' ? filterby.origin = origin : '';
+        var year = document.getElementById("year").value;
+        year != '' ? filterby.year = year : '';
+        var language = document.getElementById("language").value;
+        language != '' ? filterby.language = language : '';
+        var franchise = document.getElementById("franchise").value;
+        franchise != '' ? filterby.franchise = franchise : '';
+
+        // console.log(filterby);
+
+        $.ajax({
+            type: 'post',
+            url: '/movies',
+            data: filterby,
+            datatype: 'json',
+            contenttype: 'application/json',
+            success: function (response) {
+                var str = "";
+                if (!response.length) {
+                    str += '<div class="item"><img class="thumb" src="./searching-robo.gif" alt="Searching Robo"/>';
+                    str += '<p style="text-align:center; font-weight:bold;">No Result For Your Selection</p></div>';
+                } else {
+                    response.map((res, i) => {
+                        let data = JSON.stringify(res).replaceAll('"', '&#34;');
+                        str += '<div class="item" id="' + res.Name + '" style="margin:auto;" onclick="showDetail(\'' + data + '\')">';
+                        str += '<img class="thumb" src="Thumbnails/' + res.Thumbnail + '" alt="' + res.Name + '"/>';
+                        str += '<span class="ribbon2"><i class="bi bi-star-fill" style="color: azure;"></i> ' + res.IMDB + '</span>';
+                        str += '<span class="ribbon"><i class="bi bi-calendar" style="color: azure;"></i> ' + res.Year + '</span>';
+                        str += '</div>';
+                    })
+                }
+                document.getElementById("list").innerHTML = str;
+                document.getElementById("files").innerHTML = response.length;
+            }
+        })
+    }
+
+    function showDetail(string) {
+        let data = JSON.parse(string);
+        let title = '<h3><a href="https://en.wikipedia.org/wiki/' + data.Wikipedia + '" target="_blank">' + data.Name + '</a></h3>';
+        title += '<label style="margin:9px; color:tomato; font-weight:bold;"> (' + data.Year + ')</label>';
+        let str = '';
+        str += '<div class="details">';
+        str += '<div style="width:20vw; position: relative;"><a href="https://m.media-amazon.com/images/M/' + data.imdbThumbnail + '" target="_blank">';
+        str += '<img class="modThumb" src="Thumbnails/' + data.Thumbnail + '" alt="' + data.Name + '" /></a>';
+        str += '<span class="ribbon"><i class="bi bi-star-fill" style="color: azure;"></i> ' + data.IMDB + '</span>';
+        str += '<span class="ribbon1"><i class="bi bi-file-earmark-slides" style="color: azure;"></i> ' + data.Rating + '</span></div>';
+        str += '<div style="padding:10px; margin-left:10px; border: 2px solid gray; border-radius: 10px; width:29vw;">';
+        str += '<h6>Genre : <span style="color:tomato;">' + data.Genre + '</span></h6>';
+        str += '<h6>Language : <span style="color:tomato;">' + data.Language + '</span></h6>';
+        str += '<h6>Director : <span style="color:tomato;">' + data.Director + '</span></h6>';
+        str += '<h6>Country : <span style="color:tomato;">' + data.Origin + '</span></h6>';
+        if (data.Franchise) {
+            str += '<h6>Franchise : <span style="color:tomato;">' + data.Franchise + '</span></h6>';
+        }
+        str += '<iframe id="iframe" class="modThumb" src="https://www.youtube.com/embed/' + data.Trailer + '?autoplay=1&mute=1" height="65%" width="100%" title="YouTube Link"></iframe>'
+        str += '</div></div>';
+        document.getElementById("title").innerHTML = title;
+        document.getElementById("movieDesc").innerHTML = str;
+        $("#movieModel").modal("show");
+    }
+
+    function CloseModel() {
+        var frame = document.getElementById("iframe");
+        frame.parentNode.removeChild(frame);
+        $("#movieModel").modal("hide");
+    }
+</script>
+
+</html>

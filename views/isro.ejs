@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="robotIco.png" type="image/png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>ISRO Launches</title>
+    <style>
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .mainBox {
+            background-image: url('ISRO-Space-launch.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            width: 98%;
+            margin-top: 10px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            border: 1px solid cadetblue;
+            margin-inline: auto !important;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        }
+
+        .contentBox {
+            width: 96%;
+            height: 83vh;
+            margin-inline: auto !important;
+        }
+
+        .txtContent {
+            width: 100% !important;
+            height: 30% !important
+        }
+
+        .imgContent {
+            /* background-image: url('Your-Name-Meteor.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            position: relative; */
+            width: 100% !important;
+            height: 65% !important;
+            margin-inline: auto !important;
+            margin-bottom: 10px !important;
+            border-radius: 10px !important;
+            border: 1px solid #ccc !important;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        }
+
+        .headerText {
+            padding-top: 10px;
+            font-weight: bold;
+            color: royalblue;
+            vertical-align: middle;
+            width: fit-content;
+        }
+
+        .headerText:hover {
+            color: whitesmoke;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        p {
+            color: whitesmoke !important;
+            font-weight: bold !important;
+            font-size: 18px !important;
+            text-align: justify;
+            text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+            /* text-shadow: 4px 4px 8px black !important; */
+            /* -webkit-text-stroke: 2px black !important; */
+        }
+
+        .figure {
+            position: relative;
+            height: 30px;
+        }
+
+        .figure img.hover {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity .2s;
+            display: flex;
+            justify-content: center;
+        }
+
+        .figure:hover img.hover {
+            opacity: 1;
+            transform: scale(2.12);
+        }
+
+        .center {
+            display: block;
+            margin: auto;
+            max-width: 100% !important;
+            height: 85% !important;
+            border-radius: 30px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
+
+        .column {
+            height: 100%;
+            margin-inline: auto !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main,
+        .hover {
+            filter: drop-shadow(0 0 0.75rem gray);
+        }
+
+        a:link {
+            text-decoration: none;
+            font-weight: bold !important;
+        }
+
+        abbr[title] {
+            border-bottom: none !important;
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include("header-isro") %>
+        <div class="mainBox">
+            <div class="contentBox">
+                <div class="txtContent">
+                    <h2 class="headerText">
+                        Welcome...
+                        <span class="figure">
+                            <img class="main" src="robot-offline.png" height="40px" alt="robo-scull" />
+                            <img class="hover" src="robot.png" height="30px" alt="robo-scull" />
+                        </span>
+                    </h2>
+                    <p class="h6">&emsp;&emsp;<em>This webserver is prepared by </em><strong>Rohit</strong><em>. Usually I
+                            use '</em><strong>Roboy</strong><em>' & '</em><strong>Mehra</strong><em>' words with my name as
+                            pre-fix and su-fix respectively on the social media and my friends also use that words. I like
+                            to watch lives stream of <a href="https://en.wikipedia.org/wiki/Rocket">Rocket</a> Launching from
+                            several Space Agencies.</em></p>
+                    <p class="h6">&emsp;&emsp;<em>On this webpage you will get List of Launches done by our own Indian Space
+                            Agency <a href="https://en.wikipedia.org/wiki/ISRO"><abbr title="Indian Space Research Organisation">ISRO</abbr></a>.
+                            ISRO have many operational rocket launchers like <abbr title="Polar Satellite Launch Vehicle">PSLV</abbr>,
+                            <abbr title="Geosynchronous Satellite Launch Vehicle">GSLV</abbr> & <abbr title="Geosynchronous Launch Vehicle Mark III">LVM3</abbr>.
+                            Two rocket launchers, <abbr title="Satellite Launch Vehicle">SLV</abbr> & <abbr title="Augmented Satellite Launch Vehicle">ASLV</abbr>
+                            has been retired by ISRO and few rockets are under development like : <abbr title="Reusable Launch Vehicle - Technology Demonstrator">RLV-TD</abbr>,
+                            <abbr title="Small Satellite Launch Vehicle">SSLV</abbr> & <abbr title="Human Rated Launch Vehicle">HRLV</abbr>.</em></p>
+                </div>
+                <div class="imgContent">
+                    <div class="row" style="position:relative; width: 98%; height: 100%; margin-inline: auto;">
+                        <div class="column col">
+                            <img src="rocket-launch-pad.gif" alt="Rocket Launching Pad" class="center">
+                        </div>
+                        <div class="column col-6">
+                            <a href="https://www.isro.gov.in/Launchers.html" target="_blank">
+                                <img src="ISRO-launchers.jpg" alt="ISRO Launchers" class="center">
+                            </a>
+                        </div>
+                        <div class="column col">
+                            <img src="rocket-launch.gif" alt="Rocket Launching" class="center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include("footer-isro") %>
+</body>
+
+</html>
