@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="robotIco.png" type="image/png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Asha Activity</title>
+    <style>
+        .mainBox {
+            width: 98%;
+            height: 82vh;
+            margin-top: 10px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            /* color:greenyellow */
+            border: 1px solid cadetblue;
+            margin-inline: auto !important;
+            /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='25' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.25' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), linear-gradient(to right top, #343a40, #2b2c31, #211f22, #151314, #000000); */
+
+        }
+
+        @keyframes BackgroundGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            33.33% {
+                background-position: 100% 50%;
+            }
+
+            66.66% {
+                background-position: 100% 0%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        div.contentBox {
+            padding: 50px !important;
+            width: 96%;
+            height: 83vh;
+            margin-inline: auto !important;
+        }
+
+        div.card {
+            max-width: 25% !important;
+            height: 95% !important;
+            padding: 10px !important;
+            align-items: center !important;
+            /* justify-content: center !important; */
+            /* border: 1px solid white !important; */
+            position: relative !important;
+            margin: auto !important;
+            border-radius: 10px !important;
+            box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgb(255, 255, 255) 0px 1px 0px inset;
+            transition: all !important;
+            transition: 0.9s !important;
+            background: linear-gradient(90deg, rgba(255, 0, 0, 1), rgba(155, 255, 155, 1), rgba(0, 0, 255, 1));
+            background-size: 400% 400%;
+            animation: BackgroundGradient 30s ease infinite;
+        }
+
+        .card:hover {
+            box-shadow: rgba(255, 255, 255, 0.4) 3px 3px, rgba(255, 255, 255, 0.3) 6px 6px, rgba(255, 255, 255, 0.2) 9px 9px, rgba(255, 255, 255, 0.1) 12px 12px, rgba(255, 255, 255, 0.05) 15px 15px;
+            box-shadow: rgb(255, 255, 255) 0px 0px 0px 1px inset, rgb(0, 0, 0) 0px 0px 0px 1px;
+        }
+
+        .magicpattern {
+            background-size: cover;
+            background-position: center center;
+            background-repeat: repeat;
+            background-image: url('magicpattern.png');
+        }
+
+        .input-data {
+            margin: 5px !important;
+        }
+
+        .btn-hunt {
+            width: 40% !important;
+            margin-inline: auto !important;
+            border: 1px solid whitesmoke !important;
+        }
+
+        .center {
+            display: block;
+            margin: auto;
+            /* max-width: 100% !important; */
+            max-height: 100% !important;
+            border-radius: 30px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+        }
+
+        .column {
+            width: 100%;
+            height: 30%;
+            margin-inline: auto !important;
+            display: flex;
+            justify-content: center;
+        }
+
+        .sample {
+            width: 160px !important;
+            height: 120px !important;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+            border-radius: 10px !important;
+        }
+
+        .sample:hover {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px, rgb(51, 51, 51) 0px 0px 0px 1px;
+            transform: scale(1.5);
+        }
+
+        .table {
+            width: 100% !important;
+            max-height: 20vh !important;
+            overflow-y: auto !important;
+            margin: 0px !important;
+        }
+
+        .alert {
+            border: 2px solid tomato !important;
+            box-shadow: rgba(255, 0, 0, 0.3) 0px 19px 38px, rgba(255, 0, 0, 0.22) 0px 15px 12px;
+        }
+
+        /* CSS */
+        .proceed {
+            --c: #fff;
+            /* text color */
+            background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p, 100%)/300% no-repeat,
+                #004dff;
+            /* background color */
+            color: #0000;
+            border: none;
+            transform: perspective(500px) rotateY(calc(20deg*var(--_i, -1)));
+            text-shadow: calc(var(--_i, -1)* 0.08em) -.01em 0 var(--c),
+                calc(var(--_i, -1)*-0.08em) .01em 2px #0004;
+            outline-offset: .1em;
+            transition: 0.3s;
+        }
+
+        .proceed:hover,
+        .proceed:focus-visible {
+            --_p: 0%;
+            --_i: 1;
+        }
+
+        .proceed:active {
+            text-shadow: none;
+            color: var(--c);
+            box-shadow: inset 0 0 9e9q #0005;
+            transition: 0s;
+        }
+
+        .proceed {
+            font-weight: bold;
+            font-size: 2rem;
+            margin: 0;
+            cursor: pointer;
+            padding: .1em .3em;
+        }
+
+        @media screen {
+            #printSection {
+                display: none;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+
+            .modal {
+                visibility: visible;
+                /**Remove scrollbar for printing.**/
+                overflow: visible !important;
+                position: relative;
+            }
+
+            .modal-dialog {
+                margin: 0;
+                padding: 0;
+                scale: 90% !important;
+                max-width: 100% !important;
+                visibility: visible !important;
+                /**Remove scrollbar for printing.**/
+                overflow: visible !important;
+            }
+
+            body * {
+                visibility: hidden;
+            }
+
+            #printSection,
+            #printSection * {
+                height: max-content;
+                visibility: visible;
+                overflow: visible;
+            }
+
+            #printSection {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('header') %>
+        <div class="mainBox magicpattern">
+            <div class="contentBox">
+                <h3 style="opacity: 0.05; color: whitesmoke;">Timer => <span id="time"><label id="minutes">00</label>:<label id="seconds">00</label></span></h3>
+                <div class="card">
+                    <input class="form-control input-data" type="text" id="fname" name="fname" placeholder="Enter Your First Name" />
+                    <input class="form-control input-data" type="text" id="lname" name="lname" placeholder="Enter Your Last Name" />
+                    <select class="form-select input-data" id="lpram">
+                        <option value="" selected>Select Laptop RAM</option>
+                        <option value="0"> 4 GB</option>
+                        <option value="1"> 8 GB</option>
+                    </select>
+                    <select class="form-select input-data" id="mbram">
+                        <option value="" selected>Select Mobile RAM</option>
+                        <option value="0"> 2 GB</option>
+                        <option value="1"> 3 GB</option>
+                        <option value="2"> 4 GB</option>
+                        <option value="3"> 6 GB</option>
+                        <option value="4"> 8 GB</option>
+                    </select>
+                    <div style="display: inline-flex; margin: 5px; width: 100%;">
+                        <button type="button" class="btn btn-danger btn-hunt proceed" onclick="reset()">Reset</button>
+                        <button type="button" class="btn btn-success btn-hunt proceed" onclick="proceed()">Proceed</button>
+                    </div>
+                    <div class="column col">
+                        <img src="chatbot-kiu.gif" alt="Chat Bot" class="center">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="questionModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="questionModelLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="questionModelLabel"><b style="color:rgba(0, 0, 255, 1)">Asha For Education :</b> Fun Activity</h5>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div id="Detail"></div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <button type="button" class="btn btn-primary proceed" onclick="submit()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="printThis">
+            <div class="modal fade" id="AnswerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AnswerModelLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="AnswerModelLabel"><b style="color:rgba(0, 0, 255, 1)">Asha For Education :</b> Fun Activity Answer Sheet</h5>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+                        <div id="AnsDetail"></div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                            <button type="button" id="btnPrint" class="btn btn-primary proceed">Print AnswerSheet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content alert">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alertModalLabel" style="font-weight: bold; color: tomato;">Alert..!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="$('#questionModel').modal('show');"></button>
+                    </div>
+                    <div class="modal-body" style="text-align: justify;">
+                        &emsp;&emsp;You have attemted <strong id="number" style="color: tomato;"></strong> questions. Atleast attempt minimum <b style="color: green;">10</b> questions... Please !!!!
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <button type="button" class="btn btn-primary proceed" data-bs-dismiss="modal" onclick="$('#questionModel').modal('show');">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('footer') %>
+</body>
+<script>
+
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    var totalSeconds = 0;
+    setInterval(setTime, 1000);
+
+    function setTime() {
+        ++totalSeconds;
+        secondsLabel.innerHTML = pad(totalSeconds % 60);
+        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+    }
+
+    function pad(val) {
+        var valString = val + "";
+        if (valString.length < 2) { return "0" + valString; } else { return valString; }
+    }
+
+    function reset() {
+        document.getElementById("fname").value = "";
+        document.getElementById("lname").value = "";
+        document.getElementById("lpram").value = "";
+        document.getElementById("mbram").value = "";
+    }
+
+    function proceed() {
+        var time = document.getElementById("time").innerText;
+        var formdata = {
+            fname: $('#fname').val(),
+            lname: $('#lname').val(),
+            lapRAM: $('#lpram').val(),
+            mobRAM: $('#mbram').val(),
+            tookTime: time
+        }
+
+        if ($('#fname').val() == "" || $('#lname').val() == "" || $('#lpram').val() == "" || $('#mbram').val() == "") {
+            alert('Please fill out all fields...!');
+            return;
+        }
+
+        // console.log('Selected Data :', formdata);
+
+        $.ajax({
+            type: 'patch',
+            url: '/asha_activity',
+            data: formdata,
+            datatype: 'json',
+            contenttype: 'application/json',
+            success: function (response) {
+                console.log('Got Response :', response);
+                if (response === 'err') {
+                    alert("Something gone wrong! Please Try Again!");
+                    window.location.reload();
+                    return;
+                }
+                var { fname, lname, lapRAM, mobRAM, paperSet } = response;
+                var str = '';
+                str += '<div class="modal-body">'
+                str += '<table class="table">';
+                str += '<thead><tr><th colspan="100%" style="text-align: center;">User Name : <strong id="userName" style="color: tomato;">' + fname + ' ' + lname + '</strong> </th></tr>'
+                str += '<tr><th colspan="100%" style="text-align: center;">Laptop RAM :  <strong id="lapRAM" style="color: tomato;">' + lapRAM + 'GB</strong>, Mobile RAM : <strong id="mobRAM" style="color: tomato;">' + mobRAM + 'GB</strong> </th></tr>'
+                str += '<tr><th style="text-align: center;">S.N.</th><th style="text-align: center;">Image</th><th style="text-align: center;">Question</th><th style="text-align: center;">Options</th></tr></thead>';
+                str += '<tbody>'
+                for (let i = 0; i < paperSet.length; i++) {
+                    str += '<tr><td style="text-align: center; vertical-align: middle"><b>' + (i + 1) + '.</b></td>';
+                    str += '<td style="text-align: center; vertical-align: middle"><img class="sample" src="Activity/' + paperSet[i].sample + '" alt="Sample File" /></td>'
+                    str += '<td style="vertical-align: middle" id="Q' + (i + 1) + '" >' + paperSet[i].question + '</td>';
+                    str += '<td style="text-align: center; vertical-align: middle"><select class="form-select ans" id="A' + (i + 1) + '">';
+                    str += '<option value="">Select</option>'
+                    paperSet[i].options.map((key) => {
+                        str += '<option value= "' + key + '">' + key + '</option >';
+                    })
+                    str += '</select></td></tr>'
+                }
+                str += '</tbody></table></div>';
+                document.getElementById('Detail').innerHTML = str;
+                $("#questionModel").modal("show");
+            },
+            error: function () {
+                alert("Something gone wrong! Please Try Again!");
+                windows.location.preventDefault();
+            }
+        })
+    }
+
+    function submit() {
+        var answers = [];
+
+        var selectTags = document.getElementsByClassName("ans");
+
+        var attemted = 0;
+
+        for (var i = 0; i < selectTags.length; i++) {
+            var question = document.getElementById('Q' + (i + 1)).innerText;
+            var ans = document.getElementById('A' + (i + 1)).value;
+            if (ans != "") { attemted++; }
+            answers.push({
+                "question": question,
+                "pickans": ans
+            });
+        }
+
+        if (attemted < 10) {
+            document.getElementById('number').innerHTML = attemted;
+            $("#questionModel").modal("hide");
+            $("#alertModal").modal("show");
+            return;
+        }
+
+        var formdata = {
+            userName: document.getElementById('userName').innerText,
+            lapRAM: document.getElementById('lapRAM').innerText,
+            mobRAM: document.getElementById('mobRAM').innerText,
+            response: answers,
+            tookTime: document.getElementById("time").innerText
+        }
+
+        $.ajax({
+            type: 'post',
+            url: '/asha_activity',
+            data: formdata,
+            datatype: 'json',
+            contenttype: 'application/json',
+            success: function (response) {
+                $("#questionModel").modal("hide");
+                console.log(response);
+                if (response == 'duplicate') {
+                    alert('You had already attemted..!');
+                    return;
+                }
+                var { username, lapRAM, mobRAM, tookTime, correct, wrong, notAttempt, answerKey } = response;
+                var str = '';
+                str += '<div class="modal-body">'
+                str += '<table class="table">';
+                str += '<thead><tr><th colspan="100%" style="text-align: center;">User Name : <strong id="userName" style="color: tomato;">' + username + '</strong> Taken Time : <strong id="tookTime" style="color: tomato;">' + tookTime + ' Minutes</strong>, Not Attempted : <strong id="notattempt" style="color: tomato;">' + notAttempt + '</strong> </th></tr>'
+                str += '<tr><th colspan="100%" style="text-align: center;">Laptop RAM :  <strong id="lapRAM" style="color: tomato;">' + lapRAM + 'GB</strong>, Mobile RAM : <strong id="mobRAM" style="color: tomato;">' + mobRAM + 'GB</strong>, Correct : <strong id="correct" style="color: green;">' + correct + '</strong>, Wrong : <strong id="wrong" style="color: tomato;">' + wrong + '</strong> </th></tr>'
+                str += '<tr><th style="text-align: center;">S.N.</th><th style="text-align: center;">Question</th><th style="text-align: center;">Choosen</th><th style="text-align: center;">Answer</th></tr></thead>';
+                str += '<tbody>'
+                for (let i = 0; i < answerKey.length; i++) {
+                    str += '<tr><td style="text-align: center; vertical-align: middle"><b>' + (i + 1) + '.</b></td>';
+                    str += '<td style="vertical-align: middle" >' + answerKey[i].question + '</td>';
+                    var color;
+                    if (answerKey[i].status == 'Correct') { color = 'green' } else if (answerKey[i].status == 'Wrong') { color = 'tomato' } else { color = 'grey' };
+                    str += '<td style="vertical-align: middle; text-align: center; color:' + color + '; font-weight:bold" >' + answerKey[i].pickAns + '</td>';
+                    str += '<td style="vertical-align: middle; text-align: center; font-weight:bold" >' + answerKey[i].corrAns + '</td>';
+                }
+                str += '</tbody></table></div>';
+                document.getElementById('AnsDetail').innerHTML = str;
+                $("#AnswerModel").modal("show");
+            },
+            error: function () {
+                alert("Something gone wrong! Please Try Again!");
+                window.location.preventDefault();
+            }
+        })
+    }
+
+    document.getElementById("btnPrint").onclick = function () {
+        printElement(document.getElementById("printThis"));
+    }
+
+    function printElement(elem) {
+        var domClone = elem.cloneNode(true);
+
+        var $printSection = document.getElementById("printSection");
+
+        if (!$printSection) {
+            var $printSection = document.createElement("div");
+            $printSection.id = "printSection";
+            document.body.appendChild($printSection);
+        }
+
+        $printSection.innerHTML = "";
+        $printSection.appendChild(domClone);
+        $printSection.title = 'AnswerSheet';
+        window.print();
+
+        setTimeout(function () {
+            window.location.href = "/"
+        }, 5000);
+    }
+
+</script>
+
+</html>
