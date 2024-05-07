@@ -7,7 +7,36 @@ const fs = require('fs');
 var router = express.Router();
 var mysql = require("mysql");
 var connection = require("express-myconnection");
+var session = require("express-session");
+var MySQLStore = require("express-mysql-session")(session);
 var utils = require('./src/utils/utils');
+
+/* SET SESSION */
+var options = {
+  host: "localhost",
+  port: 3306,
+  user: 'root',
+  password: 'password',
+  database: 'roboy',
+  clearExpired: true,
+  checkExpirationInterval: 14400000,
+  expiration: 86400000,
+  createDatabaseTable: true,
+  connectionLimit: 1,
+};
+
+var sessionStore = new MySQLStore(options);
+
+app.use(
+  session({
+    secret: 'password',
+    store: sessionStore,
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
+/* End of session */
 
 app.use(
   connection(
@@ -23,6 +52,7 @@ app.use(
 );
 
 app.use(function (req, res, next) {
+  req.CheckPermission = (role, options = {}) => utils.CheckPermission(role, Object.assign(options, { req, res }));
   req.querySync = (sql, params = []) => utils.MysqlPromisify(req, sql, params);
   next();
 })
@@ -53,18 +83,16 @@ var mainjs = require('./src/movies-series');
 
 router.route("/").get(mainjs.homepage);
 
-router.route("/reg_user").post(async function (req, res, next) {
-  let data = req.body;
-  console.log('Recieved From React :', data);
-  let id = await utils.postMongoDB('users', data);
-  console.log('Recieved From MongoDB :', id);
-  res.json(JSON.stringify(id));
-});
+router.route("/reg_user").get(utils.get_reg_user);
+router.route("/reg_user").post(utils.post_reg_user);
 
-router.route("/logout").get(async function (req, res) {
-  req.session.destroy();
-  res.redirect('/');
-});
+router.route("/login").post(utils.login);
+router.route("/logout").get(utils.logout);
+
+router.route("/forgot_password").get(utils.get_frgt_pswrd);
+router.route("/forgot_password").post(utils.post_frgt_pswrd);
+
+router.route("/change_password").post(utils.change_pswrd);
 
 router.route("/getSeries").get(async function (req, res, next) {
   // res.set('Access-Control-Allow-Origin', '*');
@@ -135,6 +163,8 @@ router.route("/getIsro").get(async function (req, res, next) {
   res.send(launches);
 })
 
+router.route("/database").get(mainjs.database);
+
 router.route("/movies").get(mainjs.movies);
 router.route("/movies").post(mainjs.filterMovies);
 
@@ -146,9 +176,11 @@ router.route("/genre").get(mainjs.genre);
 router.route("/year").get(mainjs.year);
 router.route("/year").post(mainjs.filterMovSer);
 
-router.route("/isroLaunches").get(mainjs.isroLaunches);
+router.route("/isro_home").get(mainjs.isroLaunches);
 
 router.route("/isro_retired").get(mainjs.isroRetired);
+
+router.route("/wishes_rajan").get(mainjs.wishes_rajan);
 
 var test_Mongo = router.route("/testMongoDB");
 test_Mongo.get(mainjs.getMongo);
@@ -159,7 +191,8 @@ asha_activity.get(mainjs.AshaActivity);
 asha_activity.patch(mainjs.get_question);
 asha_activity.post(mainjs.post_answers);
 
-var question_hunt = router.route("/getquestions");
+var acitvity_result = router.route("/get_result");
+acitvity_result.get(mainjs.GetResult);
 
 //now we need to apply our router here
 app.use("/", router);

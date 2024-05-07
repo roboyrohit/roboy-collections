@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="robotIco.png" type="image/png" />
+    <title>Registration</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+        .box {
+            width: 95vw !important;
+            height: 90vh !important;
+            margin: auto !important;
+            margin-top: 5vh !important;
+            display: flex;
+            flex-direction: row;
+            vertical-align: middle !important;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        }
+
+        .imgDiv {
+            margin: auto !important;
+            width: 60vw !important;
+        }
+
+        .infoDiv {
+            margin: auto !important;
+            width: 25vw !important;
+            margin-inline: auto !important;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+            border-radius: 15px !important;
+            padding: 10px;
+            background-color: ghostwhite;
+            padding: 15px !important;
+        }
+
+        input {
+            border-color: gray !important;
+        }
+
+        .form-control {
+            margin-bottom: 10px !important;
+            width: 100% !important;
+        }
+
+        .form-check {
+            display: inline-flex;
+            width: 100% !important;
+            margin-bottom: 10px !important;
+            justify-content: center !important;
+        }
+
+        .btnGroup {
+            display: flex !important;
+            flex-direction: row !important;
+        }
+
+        .btn {
+            font-weight: bold !important;
+            font-family: 'Times New Roman', Times, serif;
+            width: 45% !important;
+            margin-inline: auto !important;
+        }
+
+        .logo {
+            max-width: 100% !important;
+            margin: auto !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+        <div class="imgDiv">
+            <img class="logo" src="gifs/write-robo.gif" alt="Writing Robo" />
+        </div>
+        <div class="infoDiv">
+            <img class="logo" src="Roboy Collections.png" alt="robo-scull" />
+            <p><strong>Tell Us Something About You..!</strong></p>
+            <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Enter Your First Name" autofocus>
+            <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Enter Your Last Name">
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter Your Email (Optional)">
+            <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter Your Phone Number">
+            <input type="password" id="pswrd" name="pswrd" class="form-control" placeholder="Enter Your Password">
+            <input type="password" id="cnfpswrd" name="cnfpswrd" class="form-control" placeholder="Confirm Your Password">
+            <!-- <div class="col-md-3 mb-3" style="width: 100%;">
+                <label for="validationServer05">Zip</label>
+                <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
+                <div class="invalid-feedback">
+                    Please provide a valid zip.
+                </div>
+            </div> -->
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="show" onclick="ShowPswrd()">
+                <label class="form-check-label" for="show">&ensp;Show Password</label>
+            </div>
+            <div class="btnGroup">
+                <button type="reset" class="btn btn-danger" id="cancel" onclick="window.location.href='/'">C A N C E L</button>
+                <button type="submit" class="btn btn-success" id="register" onclick="register()">R E G I S T E R</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    function ShowPswrd() {
+        var x = document.getElementById("pswrd");
+        if (x.type === "password") { x.type = "text"; } else { x.type = "password"; }
+    }
+
+    function register() {
+        var fname = document.getElementById("firstname").value;
+        if (fname.length < 3) { alert("Minimum 3 characters required for the First Name..!"); return; }
+        var lname = document.getElementById("lastname").value;
+        if (lname.length < 3) { alert("Minimum 3 characters required for the Last Name..!"); return; }
+        var email = document.getElementById("email").value;
+        var emailRegex = /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
+        if (email != "" && !emailRegex.test(email)) { alert("Please Enter a valid Email ID..!"); return; }
+        var phone = document.getElementById("phone").value;
+        if (phone.length != 10) { alert("Please Enter a valid 10 digit Mobile Number"); return; }
+        var pswrd = document.getElementById("pswrd").value;
+        var pswrdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!pswrdRegex.test(pswrd)) { alert("Password should contain minimum 8 characters including atleast one Uppercase letter, one Lowercase letter, one Number and one Special character..!"); return; }
+        var cnfpswrd = document.getElementById("cnfpswrd").value;
+        if (pswrd != cnfpswrd) { alert("Password and Confirm Password Didn't Matched..!"); return; }
+        const userData = { "fname": fname, "lname": lname, "email": email, "phone": phone, "pswrd": pswrd };
+        // console.log(userData);
+
+        // e.preventDefault();
+        $.ajax({
+            url: '/reg_user',
+            type: 'POST',
+            data: userData,
+            success: function (result) {
+                if (!result.success) {
+                    alert(result.message);
+                } else {
+                    alert('You Have been Registered Successfully With Us. Enjoy Browsing!')
+                    window.location.href = '/'
+                }
+            },
+            error: function (err) { console.error(err); alert('Server Not Responding!'); }
+        })
+    }
+</script>
+
+</html>

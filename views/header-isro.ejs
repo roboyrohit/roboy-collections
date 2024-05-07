@@ -27,6 +27,102 @@
         box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
     }
 
+    .center {
+        display: block !important;
+        margin: auto !important;
+        max-width: 100% !important;
+        max-height: 85% !important;
+        filter: drop-shadow(0 0 0.5rem black);
+        border-radius: 30px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    }
+
+    ul.dropdown-menu {
+        margin-left: -25% !important;
+        background-color: whitesmoke !important;
+        border: 2px solid black !important;
+    }
+
+    a.dropdown-item {
+        /* font-size: 14px !important; */
+        font-weight: bold !important;
+        color: black !important;
+    }
+
+    a.dropdown-item:hover {
+        color: whitesmoke !important;
+    }
+
+    .mb-3 {
+        margin-block: 10% !important;
+    }
+
+    .animated {
+        box-shadow: tomato 3px 3px 6px 0px inset, tomato -3px -3px 6px 1px inset;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        transition: all ease-in-out;
+    }
+
+    .wiggle {
+        -webkit-animation-name: shake;
+        animation-name: shake;
+    }
+
+    @-webkit-keyframes shake {
+
+        from,
+        to {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translate3d(-10px, 0, 0);
+            transform: translate3d(-10px, 0, 0);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            -webkit-transform: translate3d(10px, 0, 0);
+            transform: translate3d(10px, 0, 0);
+        }
+    }
+
+    @keyframes shake {
+
+        from,
+        to {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translate3d(-10px, 0, 0);
+            transform: translate3d(-10px, 0, 0);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            -webkit-transform: translate3d(10px, 0, 0);
+            transform: translate3d(10px, 0, 0);
+        }
+    }
+
     .btn-head {
         font-size: 15px !important;
         color: cornflowerblue !important;
@@ -44,8 +140,9 @@
     }
 
     .navbar-text {
+        margin-right: 15px;
         color: cornflowerblue !important;
-        max-width: 400px !important;
+        max-width: 380px !important;
         font-size: small;
         font-weight: bold;
         text-align: justify;
@@ -60,51 +157,165 @@
 <nav class="navbar navbar-expand-lg navbar-light header" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" style="vertical-align: middle; margin-left: 10px;" href="/"><img class="logo" src="robot.png" height="40px" alt="robo-scull" /></a>
-        <a class="navbar-brand" style="vertical-align: middle; margin-left: 1px;" href="/isroLaunches"><img class="logo" src="Isro Launches.png" height="40px" alt="robo-scull" /></a>
+        <a class="navbar-brand" style="vertical-align: middle; margin-left: 1px;" href="/isro_home"><img class="logo" src="Isro Launches.png" height="40px" alt="robo-scull" /></a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/isro_retired">
-                        <button type="button" class="btn btn-head"><i class="bi bi-rocket"></i> Retired</button>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/isro_pslv">
-                        <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> PSLV</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/isro_gslv">
-                        <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> GSLV</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/isro_lvm3">
-                        <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> LVM3</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/isro_developing">
-                        <button type="button" class="btn btn-head"><i class="bi bi-rocket"></i> Developing</button>
-                    </a>
-                </li>
+                <% if(session.Type=="Admin" ) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/isro_retired">
+                            <button type="button" class="btn btn-head"><i class="bi bi-rocket"></i> Retired</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/isro_pslv">
+                            <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> PSLV</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/isro_gslv">
+                            <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> GSLV</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/isro_lvm3">
+                            <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> LVM3</button>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/isro_developing">
+                            <button type="button" class="btn btn-head"><i class="bi bi-rocket"></i> Developing</button>
+                        </a>
+                    </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/isro_retired">
+                                <button type="button" class="btn btn-head"><i class="bi bi-rocket"></i> Retired</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/isro_pslv">
+                                <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> PSLV</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/isro_gslv">
+                                <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> GSLV</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/isro_lvm3">
+                                <button type="button" class="btn btn-head"><i class="bi bi-rocket-takeoff"></i> LVM3</button>
+                            </a>
+                        </li>
+                        <% } %>
             </ul>
             <span class="navbar-text">
                 These ISRO launcehs are collected / watched by me over the years and still getting updates from the ISRO.
             </span>
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active">
-                        <button type="button" class="btn btn-head" onclick="window.location.href='/Register'"><i class=" bi bi-person-add"></i> Sign-Up</button>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active">
-                        <button type="button" class="btn btn-head" onclick="$('#loginModal').modal('show');"><i class="bi bi-person-down"></i> Sign-In</button>
-                    </a>
-                </li>
+                <% if(session.LoginID>=0) {%>
+                    <div class="dropdown">
+                        <button class="btn btn-head dropdown-toggle" type="button" id="userProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person"></i>
+                            <%=session.LoginName%>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="userProfile">
+                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-file-earmark-person"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="/chnge_pswrd"><i class="bi bi-fingerprint"></i> Change Password</a></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="bi bi-door-open"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                    <%} else { %>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/reg_user" target="_blank">
+                                <button type="button" class="btn btn-head"><i class="bi bi-person-add"></i> Sign-Up</button>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active">
+                                <button type="button" class="btn btn-head" onclick="$('#signIn').modal('show');"><i class="bi bi-person-down"></i> Sign-In</button>
+                            </a>
+                        </li>
+                        <% } %>
             </ul>
         </div>
     </div>
 </nav>
+
+<div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="signInTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div id="Credentials" class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="signInInfo">Sign In With Your Credentials</h2>
+            </div>
+            <div class="modal-body" style="display: inline-flex !important; justify-items: center;">
+                <div style="width: 50% !important;">
+                    <img src="gifs/selfie-robo.gif" alt="Selfie Robo" class="center">
+                </div>
+                <div style="width: 50% !important;">
+                    <form id="loginForm">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="user-addon"><b>@</b></span>
+                            </div>
+                            <input type="text" id="Username" class="form-control" placeholder="Registered Email-ID or Mobile No..!" aria-describedby="user-addon" autofocus>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="pswrd-addon"><b>#</b></span>
+                            </div>
+                            <input type="password" id="Password" class="form-control" placeholder="Enter Your Password..!" aria-describedby="pswrd-addon">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" style="width:100%;"><b>S I G N - I N</b></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    let PageParams = new URLSearchParams(window.location.search);
+
+    $(document).ready(function () {
+        if (PageParams.has('login')) {
+            $('#signIn').modal('show');
+        }
+
+        $('.modal').on('shown.bs.modal', function () {
+            $(this).find('[autofocus]').focus();
+        });
+    })
+
+    $("#loginForm").bind('submit', function (e) {
+        $.ajax({
+            type: 'POST',
+            url: '/login',
+            data: { 'LoginID': $('#Username').val(), 'Password': $('#Password').val() },
+            datatype: 'json',
+            contenttype: 'application/json',
+            success: function ({ success, message }) {
+                if (success) {
+                    if (PageParams.has('redirect-to')) {
+                        window.location.href = PageParams.get('redirect-to');
+                    } else {
+                        window.location.reload();
+                    }
+                } else {
+                    $('#Credentials').addClass('animated wiggle');
+                    setTimeout(() => $('#Credentials').removeClass('animated wiggle'), 500);
+                }
+            },
+            error: function (err) {
+                $('#Credentials').addClass('animated wiggle');
+                setTimeout(() => $('#Credentials').removeClass('animated wiggle'), 500);
+            }
+        });
+        e.preventDefault();
+        return false;
+    });
+</script>
