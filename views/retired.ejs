@@ -22,14 +22,122 @@
             border-radius: 10px;
             border: 1px solid cadetblue;
             margin-inline: auto !important;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='25' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.25' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), linear-gradient(to right top, #343a40, #2b2c31, #211f22, #151314, #000000);
+            /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='25' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.25' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), linear-gradient(to right top, #343a40, #2b2c31, #211f22, #151314, #000000); */
+            background-image: url('bg-imgs/honey-comb-pattern.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
             box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
         }
 
         .contentBox {
-            width: 96%;
-            height: 83vh;
+            width: 98%;
+            height: 82vh;
             margin-inline: auto !important;
+            color: whitesmoke !important;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: justify;
+        }
+
+        h3 {
+            margin-inline-start: 25px !important;
+            margin-top: 5px !important;
+        }
+
+        a:link {
+            text-decoration: none;
+            font-weight: bold !important;
+        }
+
+        abbr[title] {
+            border-bottom: none !important;
+            text-decoration: none !important;
+        }
+
+        .divTable {
+            width: 49%;
+            margin-inline: auto;
+            background-color: dimgray;
+            border-radius: 15px;
+            box-shadow: whitesmoke 3px 3px 6px 0px inset, whitesmoke -3px -3px 6px 1px inset;
+        }
+
+        table th,
+        td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 2px;
+        }
+
+        table {
+            border-start-start-radius: 15px;
+            border-start-end-radius: 15px;
+            border-end-start-radius: 15px;
+            border-end-end-radius: 15px;
+            /* box-shadow: 5px -5px 5px darkgray, -5px 5px 5px darkgray; */
+            box-shadow: rgb(255, 255, 255) 0px 3px 12px 0px, rgb(255, 255, 255) 0px 0px 0px 1px;
+        }
+
+        tbody tr:hover {
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        tr {
+            height: 50px !important;
+        }
+
+        td {
+            border-start-start-radius: 15px;
+            border-start-end-radius: 15px;
+            /* box-shadow: 0px -1px darkgray; */
+        }
+
+        .Success td {
+            box-shadow: 0px -2px yellowgreen !important;
+        }
+
+        .Failure td {
+            box-shadow: 0px -2px tomato !important;
+        }
+
+        .Partial td {
+            box-shadow: 0px -2px yellow !important;
+        }
+
+        .launcher {
+            display: block !important;
+            margin: auto !important;
+            max-width: 100% !important;
+            max-height: 85% !important;
+            filter: drop-shadow(0 0 0.25rem whitesmoke);
+            transition: all !important;
+            transition: 0.9s !important;
+        }
+
+        .launchPic {
+            display: block !important;
+            margin: auto !important;
+            border-radius: 15px;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
+
+        .launcher:hover {
+            filter: drop-shadow(0 0 0.5rem whitesmoke);
+            transform: scale(1.55);
+        }
+
+        .rotate90 {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            max-width: 100% !important;
+            /* max-height: 100% !important; */
         }
     </style>
 </head>
@@ -38,10 +146,131 @@
     <%- include("header-isro") %>
         <div class="mainBox">
             <div class="contentBox">
+                <h2 style="margin-top: 5px;">Retired Launch Vehicles :</h2>
+                <p>&emsp;&emsp;There are two Launch Vehicles which have been retired from the service due to low success rate. During the 1960s and 1970s,
+                    India initiated its own launch vehicles owing to geopolitical and economic considerations. In the 1960s–1970s, the country developed a
+                    sounding rocket, and by the 1980s, research had yielded the <a href="https://en.wikipedia.org/wiki/Satellite_Launch_Vehicle" target="_blank"><abbr title="Satellite Launch Vehicle">
+                            SLV</abbr>-3</a> and the more advanced <a href="https://en.wikipedia.org/wiki/Augmented_Satellite_Launch_Vehicle" target="_blank"><abbr title="Augmented Satellite Launch Vehicle">ASLV</abbr></a>,
+                    complete with operational supporting infrastructure. SLV was intended to reach a height of 400 kilometres (250 mi) and carry a payload of 40 kg (88 lb).
+                    The payload capacity of the ASLV was approximately 150 kg (330 lb) to an orbit of 400 km (250 mi) with a 47-degree inclination.</p>
 
+                <div style="display: inline-flex; width: 100%; height: 55%;">
+                    <div class="divTable">
+                        <h3>SLV Launches :</h3>
+                        <table style="width: 95%;" align="center">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Site</th>
+                                    <th>Payloads</th>
+                                    <th>Mass</th>
+                                    <th>Orbit</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% slvLaunches.map((data)=>{%>
+                                    <tr class="<%=data.Result%>">
+                                        <td>
+                                            <%=data.FlightName%>
+                                        </td>
+                                        <td>
+                                            <%=data.Date%>
+                                        </td>
+                                        <td>
+                                            <%=data.LaunchSite%>
+                                        </td>
+                                        <td>
+                                            <%=data.Payloads%>
+                                        </td>
+                                        <td>
+                                            <%=data.Mass%>
+                                        </td>
+                                        <td>
+                                            <%=data.Orbit%>
+                                        </td>
+                                        <td>
+                                            <%=data.Result%>
+                                        </td>
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="divTable">
+                        <h3>ASLV Launches :</h3>
+                        <table style="width: 95%;" align="center">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Site</th>
+                                    <th>Payloads</th>
+                                    <th>Mass</th>
+                                    <th>Orbit</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% aslvLaunches.map((data)=>{%>
+                                    <tr class="<%=data.Result%>">
+                                        <td>
+                                            <%=data.FlightName%>
+                                        </td>
+                                        <td>
+                                            <%=data.Date%>
+                                        </td>
+                                        <td>
+                                            <%=data.LaunchSite%>
+                                        </td>
+                                        <td>
+                                            <%=data.Payloads%>
+                                        </td>
+                                        <td>
+                                            <%=data.Mass%>
+                                        </td>
+                                        <td>
+                                            <%=data.Orbit%>
+                                        </td>
+                                        <td>
+                                            <%=data.Result%>
+                                        </td>
+                                    </tr>
+                                    <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;display: inline-flex; width: 100%; height: 13%;">
+                    <img src="isro/SLV90.png" alt="SLV" class="launcher" onclick="showImg('SLV')">
+                    <img src="isro/ASLV90.png" alt="ASLV" class="launcher" onclick="showImg('ASLV')">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="showPic" tabindex="-1" role="dialog" aria-labelledby="signInTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div id="Credentials" class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="launchTitle"></h2>
+                    </div>
+                    <div class="modal-body" style="margin-top: 10px;display: inline-flex; width: 100%;" id="launchPic"></div>
+                </div>
             </div>
         </div>
         <%- include("footer-isro") %>
 </body>
+<script>
+    function showImg(src) {
+        console.log(src);
+        var str = '';
+        str += `<img src="isro/${src}_Launch.jpeg" alt="${src}" class="launchPic">`;
+        str += `<img src="isro/${src}.png" alt="${src}" class="launchPic">`;
+        document.getElementById('launchPic').innerHTML = str;
+        document.getElementById('launchTitle').innerHTML = src;
+        $('#showPic').modal('show');
+    }
+</script>
 
 </html>

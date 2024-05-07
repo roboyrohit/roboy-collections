@@ -14,12 +14,17 @@
             width: 0px;
         }
 
+        body {
+            overflow: hidden !important;
+        }
+
         .mainBox {
-            background-image: url('13524.jpg');
+            background-image: url('bg-imgs/13524.jpg');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
-            width: 98%;
+            width: 98vw;
+            height: 85vh;
             margin-top: 10px;
             margin-bottom: 50px;
             border-radius: 10px;
@@ -30,23 +35,75 @@
 
         .contentBox {
             width: 96%;
-            height: 83vh;
+            height: 100%;
             margin-inline: auto !important;
+        }
+
+        .fieldBox {
+            height: 70% !important;
+            width: 100% !important;
+            padding: 10px !important;
+            border-radius: 15px;
+            margin: auto !important;
+            display: inline-flex;
+        }
+        
+        .field {
+            width: 15% !important;
+            height: 100%;
+            margin: auto !important;
+            text-align: center !important;
+            border-radius: 15px;
+            overflow-y: scroll !important;
+        }
+
+        .tableFixHead {
+            overflow: auto;
+            width: 100% !important;
+        }
+
+        .tableFixHead thead {
+            font-size: 25px !important;
+            color: whitesmoke !important;
+            background-color: dodgerblue !important;
+            position: sticky !important;
+            top: 0;
+            z-index: 1;
+        }
+
+        .tr:nth-child(even) {
+            background-color: beige;
+        }
+
+        .tr:nth-child(odd) {
+            background-color: azure;
+        }
+
+        td, th {
+            border-radius: 15px;
+            /* border-start-end-radius: 15px; */
+            font-size: 20px;
+            box-shadow: 0px -1px darkgray;
+        }
+
+        .tr:hover {
+            background-color: rgb(223, 223, 223);
+            font-weight: bold;
         }
 
         .txtContent {
             width: 100% !important;
-            height: 30% !important
+            height: 37% !important
         }
 
         .imgContent {
-            background-image: url('Your-Name-Meteor.jpg');
+            background-image: url('bg-imgs/Your-Name-Meteor.jpg');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
             position: relative;
             width: 100% !important;
-            height: 65% !important;
+            height: 50% !important;
             margin-inline: auto !important;
             margin-bottom: 10px !important;
             border-radius: 10px !important;
@@ -54,7 +111,8 @@
             box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
         }
 
-        .headerText {
+        .welcome {
+            padding-left: 20px;
             padding-top: 10px;
             font-weight: bold;
             color: royalblue;
@@ -62,18 +120,20 @@
             width: fit-content;
         }
 
-        .headerText:hover {
+        .welcome:hover {
             color: whitesmoke;
             text-shadow: 2px 2px 4px #000000;
         }
 
         p {
             color: whitesmoke !important;
+            font-weight: bold !important;
+            font-size: 17px !important;
             text-align: justify;
-            text-shadow: 2px 2px 4px #000000;
+            text-shadow: 4px 4px 6px #000000;
         }
 
-        label {
+        .warnInfo {
             position: absolute;
             top: 70%;
             left: 10%;
@@ -81,7 +141,7 @@
             font-weight: bolder;
             font-size: 26px !important;
             text-align: center;
-            /* font-family: Georgia, 'Times New Roman', Times, serif; */
+            font-family: Georgia, 'Times New Roman', Times, serif;
             font-family: impact;
             text-transform: uppercase;
             color: red;
@@ -112,7 +172,16 @@
         .figure:hover img.hover {
             opacity: 1;
             transform: scale(2.12);
+        }
 
+        a:link {
+            text-decoration: none;
+            font-weight: bold !important;
+        }
+
+        abbr[title] {
+            border-bottom: none !important;
+            text-decoration: none !important;
         }
 
         .center {
@@ -120,10 +189,17 @@
             margin: auto !important;
             max-width: 100% !important;
             max-height: 85% !important;
+            filter: drop-shadow(0 0 0.5rem black);
             border-radius: 30px;
             box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
             /* box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; */
             /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
+        }
+
+        .happyRobo {
+            display: block !important;
+            width: 10% !important;
+            filter: drop-shadow(0 0 0.15rem black);
         }
 
         .column {
@@ -132,98 +208,228 @@
             display: flex;
             justify-content: center;
         }
-
-        img {
-            filter: drop-shadow(0 0 0.75rem black);
-        }
     </style>
 </head>
 
 <body>
     <%- include('header') %>
         <div class="mainBox">
-            <div class="contentBox">
-                <div class="txtContent">
-                    <h2 class="headerText">
-                        Welcome...
-                        <span class="figure">
-                            <img class="main" src="robot-offline.png" height="40px" alt="robo-scull" />
-                            <img class="hover" src="robot.png" height="30px" alt="robo-scull" />
-                        </span>
-                    </h2>
-                    <p class="h6">&emsp;&emsp;<em>This webserver is prepared by </em><strong>Rohit</strong><em>. Usually I
-                            use '</em><strong>Roboy</strong><em>' & '</em><strong>Mehra</strong><em>' words with my name as
-                            pre-fix and su-fix respectively on the social media and my friends also use that words. I like
-                            to watch Sci-Fi, Adventure, Action, Space Adventure Genre Movies, because since my school life I
-                            like the Science subject and like to read Scientific topics. </em></p>
-                    <p class="h6">&emsp;&emsp;<em>On this webpage you will get List of the movies and series watched /
-                            enjoyed by me till now. In the list movies from India, Foreign Countries are available. To know
-                            more click on the related Link or Button.</em></p>
-                </div>
+            <h2 class="welcome">
+                Welcome..!
+                <span class="figure">
+                    <img class="main" src="robot-offline.png" height="40px" alt="robo-scull" />
+                    <img class="hover" src="robot.png" height="30px" alt="robo-scull" />
+                </span>
+            </h2>
+            <% if(session.Type=="Admin" ) {%>
+                <% } else if (session.Type=="General User" ) { %>
+                    <div class="contentBox">
+                        <div class="txtContent">
+                            <p class="h6">&emsp;&emsp;<em>This webserver is prepared by
+                                </em><strong>Rohit</strong><em>. Usually I use '</em><strong>Roboy</strong><em>' &
+                                    '</em><strong>Mehra</strong><em>' words with my name as pre-fix and su-fix
+                                    respectively on the social media and my friends also use that words. I like to
+                                    watch Sci-Fi, Adventure, Action, Space Adventure Genre Movies, because since my
+                                    school life I like the Science subject and like to read Scientific topics. </em>
+                            </p>
+                            <p class="h6">&emsp;&emsp;<em>On this webpage you will <span onclick="getResult()">get
+                                        list</span> of the movies and series watched / enjoyed by me till now. In
+                                    the list Movies and Series from India, Foreign Countries are available. To know more
+                                    click on the related Link or Button.</em></p>
+                        </div>
 
-                <% let random=Math.floor(Math.random() * 4); %>
-                    <div class="imgContent">
-                        <div class="row" style="position:relative; width: 98%; height: 100%; margin-inline: auto;">
-                            <div class="column col">
-                                <% if (random==0) { %>
-                                    <!-- <a href="/asha_activity"> -->
-                                    <img src="<%=images[0]%>" alt="<%=images[0]%>" class="center" onclick="window.location.href='/asha_activity'">
-                                    <!-- </a> -->
-                                    <% } else { %>
-                                        <img src="<%=images[0]%>" alt="<%=images[0]%>" class="center" onclick="$('#alertModal').modal('show');">
-                                        <% } %>
+                        <% let random=5; let num=Math.floor(Math.random() * 4); %>
+                            <div class="imgContent">
+                                <div class="row"
+                                    style="position:relative; width: 98%; height: 100%; margin-inline: auto;">
+                                    <div class="column col">
+                                        <% if (random==0) { %>
+                                            <img src="gifs/<%=images[0]%>" alt="<%=images[0]%>" class="center"
+                                                onclick="window.location.href='/asha_activity'">
+                                            <% } else { %>
+                                                <img src="gifs/<%=images[0]%>" alt="<%=images[0]%>" class="center"
+                                                    onclick="$('#alertModal').modal('hide');">
+                                                <% } %>
+                                    </div>
+                                    <div class="column col">
+                                        <% if (random==1) { %>
+                                            <img src="gifs/<%=images[1]%>" alt="<%=images[1]%>" class="center"
+                                                onclick="window.location.href='/asha_activity'">
+                                            <% } else { %>
+                                                <img src="gifs/<%=images[1]%>" alt="<%=images[1]%>" class="center"
+                                                    onclick="$('#alertModal').modal('hide');">
+                                                <% } %>
+                                    </div>
+                                    <div class="column col">
+                                        <% if (random==2) { %>
+                                            <img src="gifs/<%=images[2]%>" alt="<%=images[2]%>" class="center"
+                                                onclick="window.location.href='/asha_activity'">
+                                            <% } else { %>
+                                                <img src="gifs/<%=images[2]%>" alt="<%=images[2]%>" class="center"
+                                                    onclick="$('#alertModal').modal('hide');">
+                                                <% } %>
+                                    </div>
+                                    <div class="column col">
+                                        <% if (random==3) { %>
+                                            <img src="gifs/<%=images[3]%>" alt="<%=images[3]%>" class="center"
+                                                onclick="window.location.href='/asha_activity'">
+                                            <% } else { %>
+                                                <img src="gifs/<%=images[3]%>" alt="<%=images[3]%>" class="center"
+                                                    onclick="$('#alertModal').modal('hide');">
+                                                <% } %>
+                                    </div>
+                                    <div class="column col">
+                                        <% if (random==4) { %>
+                                            <img src="gifs/<%=images[4]%>" alt="<%=images[4]%>" class="center"
+                                                onclick="window.location.href='/asha_activity'">
+                                            <% } else { %>
+                                                <img src="gifs/<%=images[4]%>" alt="<%=images[4]%>" class="center"
+                                                    onclick="$('#alertModal').modal('hide');">
+                                                <% } %>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="column col">
-                                <% if (random==1) { %>
-                                    <!-- <a href="/asha_activity"> -->
-                                    <img src="<%=images[1]%>" alt="<%=images[1]%>" class="center" onclick="window.location.href='/asha_activity'">
-                                    <!-- </a> -->
-                                    <% } else { %>
-                                        <img src="<%=images[1]%>" alt="<%=images[1]%>" class="center" onclick="$('#alertModal').modal('show');">
-                                        <% } %>
-                            </div>
-                            <div class="column col">
-                                <% if (random==2) { %>
-                                    <!-- <a href="/asha_activity"> -->
-                                    <img src="<%=images[2]%>" alt="<%=images[2]%>" class="center" onclick="window.location.href='/asha_activity'">
-                                    <!-- </a> -->
-                                    <% } else { %>
-                                        <img src="<%=images[2]%>" alt="<%=images[2]%>" class="center" onclick="$('#alertModal').modal('show');">
-                                        <% } %>
-                            </div>
-                            <div class="column col">
-                                <% if (random==3) { %>
-                                    <!-- <a href="/asha_activity"> -->
-                                    <img src="<%=images[3]%>" alt="<%=images[3]%>" class="center" onclick="window.location.href='/asha_activity'">
-                                    <!-- </a> -->
-                                    <% } else { %>
-                                        <img src="<%=images[3]%>" alt="<%=images[3]%>" class="center" onclick="$('#alertModal').modal('show');">
-                                        <% } %>
-                            </div>
-                            <div class="column col">
-                                <% if (random==4) { %>
-                                    <!-- <a href="/asha_activity"> -->
-                                    <img src="<%=images[4]%>" alt="<%=images[4]%>" class="center" onclick="window.location.href='/asha_activity'">
-                                    <!-- </a> -->
-                                    <% } else { %>
-                                        <img src="<%=images[4]%>" alt="<%=images[4]%>" class="center" onclick="$('#alertModal').modal('show');">
-                                        <% } %>
+                    </div>
+                    <%} else { %>
+                        <div class="contentBox">
+                            <p class="h6">&emsp;&emsp;<em>On this webpage you will <span onclick="getResult()">get
+                                        list</span> of the movies and series watched / enjoyed by me till now. In
+                                    the list Movies and Series are available for following Ratings, Genres, Years,
+                                    Origins, Languages and Franchises. You will get important details with referance
+                                    like Wikipedia Link, Official Poster Link, Official / Un-official YouTube Trailer
+                                    Link. To know more click on the related Link or Button. </em></p>
+                            <p class="h6">&emsp;&emsp;<em>On this Server One other option is also available related to
+                                    Our Indian Space Agency. On that page you can find launching details by <a
+                                        href="https://en.wikipedia.org/wiki/ISRO"><abbr
+                                            title="Indian Space Research Organisation">ISRO</abbr></a> till now. You
+                                    will get information about Launchers are being used inlcuidng Underdevelopment and
+                                    Retired, Launched Indian and Foreign Satellites by ISRO.</em></p>
+                            <div class="fieldBox">
+                                <div class="field">
+                                    <table class="tableFixHead">
+                                        <thead>
+                                            <tr>
+                                                <th>Ratings ( <%=ratings.length%> )</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% ratings.map(key=>{%>
+                                                <tr class="tr">
+                                                    <td>
+                                                        <%=key%>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="field">
+                                    <table class="tableFixHead">
+                                        <thead>
+                                            <tr>
+                                                <th>Genres ( <%=genres.length%> )</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% genres.map(key=>{%>
+                                                <tr class="tr">
+                                                    <td>
+                                                        <%=key%>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="field">
+                                    <table class="tableFixHead">
+                                        <thead>
+                                            <tr>
+                                                <th>Years ( <%=years.length%> )</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% years.map(key=>{%>
+                                                <tr class="tr">
+                                                    <td>
+                                                        <%=key%>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="field">
+                                    <table class="tableFixHead">
+                                        <thead>
+                                            <tr>
+                                                <th>Origins ( <%=origins.length%> )</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% origins.map(key=>{%>
+                                                <tr class="tr">
+                                                    <td>
+                                                        <%=key%>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="field">
+                                    <table class="tableFixHead">
+                                        <thead>
+                                            <tr>
+                                                <th>Languages ( <%=languages.length%> )</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% languages.map(key=>{%>
+                                                <tr class="tr">
+                                                    <td>
+                                                        <%=key%>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="field">
+                                    <table class="tableFixHead">
+                                        <thead>
+                                            <tr>
+                                                <th>Franchises ( <%=franchise.length%> )</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% franchise.map(key=>{%>
+                                                <tr class="tr">
+                                                    <td>
+                                                        <%=key%>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-            </div>
+                        <% } %>
         </div>
 
-        <div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal fade" id="alertModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="alertModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content alert">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="alertModalLabel" style="font-weight: bold; color: tomato;">Try Again ..!</h5>
+                        <h5 class="modal-title" id="alertModalLabel" style="font-weight: bold; color: tomato;">Please
+                            Try Again ..!</h5>
                         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                     </div>
                     <div class="modal-body">
-                        <img src="relaxed-robo.gif" alt="relaxed-robo" class="center">
-                        <label>You clicked on the wrong Robo gif Image...!</label>
+                        <img src="gifs/Robo User.gif" alt="Robo User" class="center">
+                        <label class="warnInfo">You clicked on the wrong Robo gif Image...!</label>
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -232,7 +438,61 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="resultModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="resultModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="resultModalLabel" style="font-weight: bold; color: green;">Asha Fun
+                            Activity Result</h5>
+                        <img src="gifs/crazy-robo.gif" alt="crazy-robo" class="happyRobo">
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div id="resultDetail"></div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <img src="gifs/crazy-robo.gif" alt="crazy-robo" class="happyRobo">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%- include('footer') %>
 </body>
+
+<script>
+    function getResult() {
+        $.ajax({
+            type: 'get',
+            url: '/get_result',
+            success: function (response) {
+                console.log('Got Response :', response);
+                if (response === 'err') {
+                    alert("Something gone wrong! Please Try Again!");
+                    window.location.reload();
+                    return;
+                }
+                var str = '';
+                str += '<div class="modal-body">'
+                str += '<table class="table">';
+                str += '<tr><th style="text-align: center;">S. N.</th><th style="text-align: center;">Participant</th><th style="text-align: center;">Taken Time</th><th style="text-align: center;">Correct</th><th style="text-align: center;">Wrong</th><th style="text-align: center;">Not Attempt</th></tr></thead>';
+                str += '<tbody>'
+                for (let i = 0; i < response.length; i++) {
+                    str += '<tr><td style="text-align: center; font-weight:bold"><b>' + (i + 1) + '.</b></td>';
+                    str += '<td style="text-align: center; font-weight:bold; color:blue;" >' + response[i].UserName + '</td>';
+                    str += '<td style="text-align: center; font-weight:bold" >' + response[i].TakenTime + '</td>';
+                    str += '<td style="text-align: center; font-weight:bold; color:green;" >' + response[i].Correct + '</td>';
+                    str += '<td style="text-align: center; font-weight:bold; color:tomato;" >' + response[i].Wrong + '</td>';
+                    str += '<td style="text-align: center; font-weight:bold; color:grey;" >' + response[i].NotAttempt + '</td></tr>'
+                }
+                str += '</tbody></table></div>';
+
+                document.getElementById('resultDetail').innerHTML = str;
+                $("#resultModal").modal("show");
+            }
+        });
+    }
+</script>
 
 </html>

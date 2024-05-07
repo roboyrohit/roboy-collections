@@ -29,33 +29,65 @@ async function filteredData(array, rules) {
     })
 }
 
+exports.database = async function(req, res, next) {
+    let { session } = req;
+    let movies = await req.querySync("SELECT * FROM Movies;");
+    movies = JSON.parse(JSON.stringify(movies));
+
+    let series = await req.querySync("SELECT * FROM Series;");
+    series = JSON.parse(JSON.stringify(series));
+
+    let isro = await req.querySync(`SELECT * FROM isrolaunches;`);
+    isro = JSON.parse(JSON.stringify(isro));
+
+    res.render('database', {session, movies, series, isro})
+}
+
 exports.homepage = async function (req, res, next) {
-    const images = ["waving-robo.gif", "sqweeks.gif", "moving-robo.gif", "searching-robo.gif", "giphy.gif"];
+    let { session } = req;
 
-    function shuffleArray(array) {
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+    if (session.Type === undefined) {
+        let ratings = await utils.getQuery(req, "Movies", "Rating", "no");
+        let genres = await utils.getQuery(req, "Movies", "Genre", "yes");
+        let years = await utils.getQuery(req, "Movies", "Year", "no");
+        let origins = await utils.getQuery(req, "Movies", "Origin", "yes");
+        let languages = await utils.getQuery(req, "Movies", "Language", "yes");
+        let franchise = await utils.getQuery(req, "Movies", "Franchise", "no");
+        res.render('home', { session, ratings, years, genres, origins, languages, franchise });
+    } else if (session.Type === 'Admin') {
+        console.log('Admin Controle');
+        res.render('home', { session });
+    } else if (session.Type === 'General User') {
+
+        const images = ["waving-robo.gif", "sqweeks.gif", "moving-robo.gif", "searching-robo.gif", "giphy.gif"];
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
         }
-    }
-    shuffleArray(images);
+        shuffleArray(images);
 
-    res.render('home', {images});
+        res.render('home', { session, images });
+    }
 }
 
 exports.movies = async function (req, res, next) {
+    let { session } = req;
+    if (!req.CheckPermission('General User')) { return; }
     let moviesList = await req.querySync("SELECT * FROM Movies;");
     moviesList = JSON.parse(JSON.stringify(moviesList));
-    console.log('Movies From DB : ', moviesList.length);
     let ratings = await utils.getQuery(req, "Movies", "Rating", "no");
-    let years = await utils.getQuery(req, "Movies", "Year", "no");
     let genres = await utils.getQuery(req, "Movies", "Genre", "yes");
+    let years = await utils.getQuery(req, "Movies", "Year", "no");
     let origins = await utils.getQuery(req, "Movies", "Origin", "yes");
     let languages = await utils.getQuery(req, "Movies", "Language", "yes");
     let franchise = await utils.getQuery(req, "Movies", "Franchise", "no");
-    res.render('movies', { moviesList, ratings, years, genres, origins, languages, franchise });
+    console.log('Movies :', moviesList.length, 'Ratings : ', ratings.length, 'Years : ', years.length, 'Genres : ', genres.length, 'Origins : ', origins.length, 'Languages : ', languages.length, 'Franchises : ', franchise.length)
+    res.render('movies', { session, moviesList, ratings, years, genres, origins, languages, franchise });
 }
 
 exports.filterMovies = async function (req, res, next) {
@@ -74,7 +106,7 @@ exports.filterMovies = async function (req, res, next) {
         if (franchise) { str.franchise = franchise; }
 
         let filteredlist = await filteredData(moviesList, str);
-        console.log('Movies Filtering Options :', typeof str, str, '\tMulti Layer Filtered Movies Data :', filteredlist.length);
+        console.log('Filter By :', str, '\tFiltered Data :', filteredlist.length);
 
         filteredlist = sortarray(filteredlist, 'Year');
         res.send(filteredlist);
@@ -82,14 +114,16 @@ exports.filterMovies = async function (req, res, next) {
 }
 
 exports.series = async function (req, res, next) {
+    let { session } = req;
+    if (!req.CheckPermission('General User')) { return; }
     let seriesList = await req.querySync("SELECT * FROM Series;");
     seriesList = JSON.parse(JSON.stringify(seriesList));
-    console.log('Series From DB : ', seriesList.length);
     let genres = await utils.getQuery(req, "Series", "Genre", "yes");
     let origins = await utils.getQuery(req, "Series", "Origin", "yes");
     let years = await utils.getQuery(req, "Series", "Year", "no");
     let networks = await utils.getQuery(req, "Series", "Network", "no");
-    res.render('series', { seriesList, years, genres, origins, networks });
+    console.log('Series :', seriesList.length, 'Genres : ', genres.length, 'Origins : ', origins.length, 'Years : ', years.length, 'Networks : ', networks.length)
+    res.render('series', { session, seriesList, years, genres, origins, networks });
 }
 
 exports.filterSeries = async function (req, res, next) {
@@ -106,7 +140,7 @@ exports.filterSeries = async function (req, res, next) {
         if (network) { str.network = network; }
 
         let filteredlist = await filteredData(seriesList, str);
-        console.log('Series Filtering Options :', typeof str, str, '\tMulti Layer Filtered Series Data :', filteredlist.length);
+        console.log('Filter By :', str, '\tFiltered Data :', filteredlist.length);
 
         filteredlist = sortarray(filteredlist, 'Year');
         res.send(filteredlist);
@@ -114,6 +148,8 @@ exports.filterSeries = async function (req, res, next) {
 }
 
 exports.genre = async function (req, res, next) {
+    let { session } = req;
+    if (!req.CheckPermission('General User')) { return; }
     let moviesList = await req.querySync("SELECT * FROM Movies;");
     moviesList = JSON.parse(JSON.stringify(moviesList));
     let moveisgenres = await utils.getQuery(req, "Movies", "Genre", "yes");
@@ -125,18 +161,24 @@ exports.genre = async function (req, res, next) {
     let genres = seriesgenres.concat(moveisgenres);
     genres = genres.filter((item, index) => genres.indexOf(item) === index).sort();
     var movseries = seriesList.concat(moviesList);
-    res.render('genre', { genres, movseries });
+    res.render('genre', { session, genres, movseries });
 }
 
 exports.isroLaunches = async function (req, res, next) {
-    res.render('isro');
+    let { session } = req;
+    res.render('isro', { session });
 }
 
 exports.isroRetired = async function (req, res, next) {
-    res.render('retired');
+    let { session } = req;
+    let slvLaunches = await req.querySync(`SELECT * FROM isrolaunches WHERE Config = 'SLV';`)
+    let aslvLaunches = await req.querySync(`SELECT * FROM isrolaunches WHERE Config = 'ASLV';`)
+    res.render('retired', { session, slvLaunches, aslvLaunches });
 }
 
 exports.year = async function (req, res, next) {
+    let { session } = req;
+    if (!req.CheckPermission('General User')) { return; }
     let moviesList = await req.querySync("SELECT * FROM Movies;");
     moviesList = JSON.parse(JSON.stringify(moviesList));
     let moveisyears = await utils.getQuery(req, "Movies", "Year", "no");
@@ -146,10 +188,10 @@ exports.year = async function (req, res, next) {
     let seriesyears = await utils.getQuery(req, "Series", "Year", "no");
 
     let years = seriesyears.concat(moveisyears);
-    years = years.filter((item, index) => years.indexOf(item) === index).sort();
+    years = years.filter((item, index) => years.indexOf(item) === index).sort().reverse();
     var movseries = seriesList.concat(moviesList);
     movseries = sortarray(movseries, 'Name');
-    res.render('year', { years, movseries });
+    res.render('year', { session, years, movseries });
 }
 
 exports.filterMovSer = async function (req, res, next) {
@@ -172,7 +214,16 @@ exports.filterMovSer = async function (req, res, next) {
 }
 
 exports.getMongo = async function (req, res, next) {
-    res.render('mongoDB');
+    let { session } = req;
+    if (!req.CheckPermission('Admin')) { return; }
+    res.render('mongoDB', { session });
+}
+
+exports.testMongo = async function (req, res, next) {
+    let data = req.body;
+    console.log('Data Length :', data);
+    await utils.postMongoDB('InsertTest', data);
+    res.send(data);
 }
 
 exports.AshaActivity = async function (req, res, next) {
@@ -192,6 +243,21 @@ exports.get_question = async function (req, res, next) {
 
         if (fname === 'Rohit' && lname === 'Mehra') {
             paper = require('../public/MockData/activityMain.json');
+        } else if (fname === 'Sample' && lname === 'Paper') {
+            paper = [];
+            for (var i = 0; i < 10; i++) {
+                paper.push({
+                    "question": "This is a sample Questions " + (i + 1) + ".",
+                    "options": [
+                        "Option 1",
+                        "Option 2",
+                        "Option 3",
+                        "Option 4"
+                    ],
+                    "answer": "Option",
+                    "sample": "Robo Mind.webp"
+                })
+            }
         } else {
             paper = data[lapRAM].paperSets[mobRAM].paper;
         }
@@ -222,37 +288,56 @@ exports.post_answers = async function (req, res, next) {
         var mobValue = (mobKey.find(({ RAM }) => RAM === mobRAM)).key;
 
         // console.log(lapRAM, lapValue, mobRAM, mobValue);
-
-        var data = require('../public/MockData/activity.json');
-        var paper = data[lapValue].paperSets[mobValue].paper;
+        var paper;
+        if (userName === 'Rohit Mehra') {
+            paper = require('../public/MockData/activityMain.json');
+        } else {
+            var data = require('../public/MockData/activity.json');
+            paper = data[lapValue].paperSets[mobValue].paper;
+        }
 
         var correct = 0, wrong = 0, attempted = 0, notattempted = 0;
 
         var answerkey = []
 
-        for (var i = 0; i < response.length; i++) {
-            var status;
-            // console.log('User Answer :', response[i].pickans, 'Correct Answer : ', paper[i].answer);
-
-            if (response[i].pickans == "") {
-                notattempted++; status = 'Not Attempted';
-            } else {
-                attempted++;
-                if (response[i].pickans == paper[i].answer) {
-                    // console.log('Correct');
-                    correct++; status = 'Correct';
-                } else {
-                    // console.log('Wrong');
-                    wrong++; status = 'Wrong';
-                }
+        if (userName === 'Sample Paper') {
+            var ans = true;
+            for (var i = 0; i < 10; i++) {
+                ans = ans ? false : true;
+                let stts = ans ? 'Correct' : 'Wrong'
+                stts == 'Correct' ? correct++ : wrong++;
+                answerkey.push({
+                    "question": "This is a sample Questions " + (i + 1) + ".",
+                    "status": stts,
+                    "pickAns": "Chosen Answer",
+                    "corrAns": "Correct Answer"
+                })
             }
+        } else {
+            for (var i = 0; i < response.length; i++) {
+                var status;
+                // console.log('User Answer :', response[i].pickans, 'Correct Answer : ', paper[i].answer);
 
-            answerkey.push({
-                "question": response[i].question,
-                "status": status,
-                "pickAns": response[i].pickans,
-                "corrAns": paper[i].answer
-            })
+                if (response[i].pickans == "") {
+                    notattempted++; status = 'Not Attempted';
+                } else {
+                    attempted++;
+                    if (response[i].pickans == paper[i].answer) {
+                        // console.log('Correct');
+                        correct++; status = 'Correct';
+                    } else {
+                        // console.log('Wrong');
+                        wrong++; status = 'Wrong';
+                    }
+                }
+
+                answerkey.push({
+                    "question": response[i].question,
+                    "status": status,
+                    "pickAns": response[i].pickans,
+                    "corrAns": paper[i].answer
+                })
+            }
         }
 
         // console.log(answerkey);
@@ -273,9 +358,18 @@ exports.post_answers = async function (req, res, next) {
     }
 }
 
-exports.testMongo = async function (req, res, next) {
-    let data = req.body;
-    console.log('Data Length :', data);
-    await utils.postMongoDB('InsertTest', data);
-    res.send(data);
+exports.GetResult = async function (req, res, next) {
+    try {
+        var result = await req.querySync("SELECT * FROM asha_activity ORDER BY Wrong ASC;");
+        result = JSON.parse(JSON.stringify(result));
+        // console.log('Result From DB : ', result);
+
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.wishes_rajan = async function (req, res, next) {
+    res.render('wishes_rajan');
 }

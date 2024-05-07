@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="robotIco.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src='https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js'></script>
+    <script type="text/javascript" src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .mainBox {
+            background-image: url('bg-imgs/magicpattern.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            width: 98%;
+            height: 84vh;
+            padding: 5px;
+            margin-top: 10px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            border: 1px solid cadetblue;
+            margin-inline: auto !important;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        }
+
+        .box-content {
+            margin: 10px !important;
+            height: 90% !important;
+            border-radius: 15px !important;
+            overflow: auto;
+            background-color: white !important;
+            box-shadow: rgba(255, 255, 255, 0.9) 0px 3px 6px, rgba(255, 255, 255, 0.7) 0px 3px 6px;
+        }
+
+        .box-content input {
+            margin: 5px !important;
+        }
+
+        .mainBox a.btn {
+            margin: 5px !important;
+            font-weight: bold !important;
+            background-color: blanchedalmond !important;
+        }
+
+        .mainBox a.active {
+            background-color: royalblue !important;
+            color: whitesmoke !important;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px !important;
+        }
+
+        .tableFixHead {
+            overflow: auto;
+            width: 100% !important;
+        }
+
+        td,
+        th {
+            text-align: center !important;
+            vertical-align: middle !important;
+            height: 30px !important;
+        }
+
+        .tableFixHead thead {
+            background-color: whitesmoke !important;
+            position: sticky !important;
+            top: 0;
+            z-index: 1;
+        }
+
+        .tableFixHead tr {
+            height: 50px !important;
+        }
+
+        thead th:first-child {
+            border-start-start-radius: 15px !important;
+        }
+
+        thead th:last-child {
+            border-start-end-radius: 15px !important;
+        }
+
+        .tr:nth-child(even) {
+            background-color: beige;
+        }
+
+        .tr:nth-child(odd) {
+            background-color: azure;
+        }
+
+        th {
+            border-color: gray !important;
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
+
+        td {
+            font-size: 14px !important;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border-color: darkgray !important;
+            box-shadow: 0px -1px darkgray !important;
+            max-width: 10vw !important;
+            min-width: 5vw !important;
+        }
+
+        .tr:hover {
+            background-color: rgb(223, 223, 223);
+            font-weight: bold;
+        }
+
+        .btn {
+            transition: all 1s !important;
+        }
+
+        .btn-danger:hover,
+        .btn-secondary:hover {
+            border-radius: 30px !important;
+            font-size: 18px !important;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        .btn-danger:hover {
+            border: 2px solid tomato;
+            color: tomato !important;
+            background-color: whitesmoke !important;
+        }
+
+        .btn-secondary:hover {
+            border: 2px solid gray;
+            color: gray !important;
+            background-color: whitesmoke !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <%- include("header") %>
+        <div class="mainBox">
+            <div style="display: inline-flex;">
+                <a class="btn active" id="moviesBtn" onclick="swapDiv('movies', 'series', 'isro')"><i
+                        class="bi bi-film"></i> Movies</a>
+                <a class="btn" id="seriesBtn" onclick="swapDiv('series', 'isro', 'movies')"><i
+                        class="bi bi-camera-reels"></i> Series</a>
+                <a class="btn" id="isroBtn" onclick="swapDiv('isro', 'movies', 'series')"><i class="bi bi-rocket"></i>
+                    ISRO</a>
+                <!-- <span class="col-xs-3 pull-right" style="margin:5px">
+                    <input id="searchbox" class="form-control" placeholder="Search Here..!" name="searchbox" type="text"
+                        onkeyup="searchDiv('moviesTbl')" />
+                </span> -->
+            </div>
+
+            <div id="movies" class="box-content">
+                <table id="moviesTbl" class="tableFixHead table table-bordered bootstrap-datatable datatable">
+                    <thead>
+                        <tr>
+                            <th>Movie Title</th>
+                            <th>IMDB</th>
+                            <th>Genre</th>
+                            <th>Rating</th>
+                            <th>Director</th>
+                            <th>Release</th>
+                            <th>Origin</th>
+                            <th>Language</th>
+                            <th>Franchise</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% movies.map((obj)=>{ %>
+                            <tr class="tr">
+                                <td>
+                                    <%=obj.Name%>
+                                </td>
+                                <td>
+                                    <%=obj.IMDB%>
+                                </td>
+                                <td>
+                                    <%=obj.Genre%>
+                                </td>
+                                <td>
+                                    <%=obj.Rating%>
+                                </td>
+                                <td>
+                                    <%=obj.Director%>
+                                </td>
+                                <td>
+                                    <%=obj.Year%>
+                                </td>
+                                <td>
+                                    <%=obj.Origin%>
+                                </td>
+                                <td>
+                                    <%=obj.Language%>
+                                </td>
+                                <td>
+                                    <%=obj.Franchise%>
+                                </td>
+                                <td>
+                                    <!-- <button class="btn btn-danger" onclick="deleteMovie(this)"><i class="bi bi-trash"></i></button> -->
+                                    <button class="btn btn-secondary" onclick="editMovie(this)"><i
+                                            class="bi bi-pencil"></i></button>
+                                </td>
+                            </tr>
+                            <%})%>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="series" class="box-content" style="display: none;">
+                <table id="seriesTbl" class="tableFixHead table table-bordered bootstrap-datatable datatable">
+                    <thead>
+                        <tr>
+                            <th>Series Title</th>
+                            <th>IMDB</th>
+                            <th>Genre</th>
+                            <th>Episodes</th>
+                            <th>Director</th>
+                            <th>Origin</th>
+                            <th>Release</th>
+                            <th>Network</th>
+                            <th>Admin Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% series.map((obj)=>{ %>
+                            <tr class="tr">
+                                <td>
+                                    <%=obj.Name%>
+                                </td>
+                                <td>
+                                    <%=obj.IMDB%>
+                                </td>
+                                <td>
+                                    <%=obj.Genre%>
+                                </td>
+                                <td>
+                                    <%=obj.Episodes%>
+                                </td>
+                                <td>
+                                    <%=obj.Director%>
+                                </td>
+                                <td>
+                                    <%=obj.Origin%>
+                                </td>
+                                <td>
+                                    <%=obj.Year%>
+                                </td>
+                                <td>
+                                    <%=obj.Network%>
+                                </td>
+                                <td>
+                                    <!-- <button class="btn btn-danger" onclick="deleteMovie(this)"><i class="bi bi-trash"></i></button> -->
+                                    <button class="btn btn-secondary" onclick="editMovie(this)"><i
+                                            class="bi bi-pencil"></i></button>
+                                </td>
+                            </tr>
+                            <%})%>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="isro" class="box-content" style="display: none;">
+                <table id="isroTbl" class="tableFixHead table table-bordered bootstrap-datatable datatable">
+                    <thead>
+                        <tr>
+                            <th>Flight Name</th>
+                            <th>Launch Date</th>
+                            <th>Launch Site</th>
+                            <th>Payloads</th>
+                            <th>Mass</th>
+                            <th>Orbit</th>
+                            <th>Result</th>
+                            <th>Admin Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% isro.map((obj)=>{ %>
+                            <tr class="tr">
+                                <td>
+                                    <%=obj.FlightName%>
+                                </td>
+                                <td>
+                                    <%=obj.Date%>
+                                </td>
+                                <td>
+                                    <%=obj.LaunchSite%>
+                                </td>
+                                <td>
+                                    <%=obj.Payloads%>
+                                </td>
+                                <td>
+                                    <%=obj.Mass%>
+                                </td>
+                                <td>
+                                    <%=obj.Orbit%>
+                                </td>
+                                <td>
+                                    <%=obj.Result%>
+                                </td>
+                                <td>
+                                    <!-- <button class="btn btn-danger" onclick="deleteMovie(this)"><i class="bi bi-trash"></i></button> -->
+                                    <button class="btn btn-secondary" onclick="editMovie(this)"><i
+                                            class="bi bi-pencil"></i></button>
+                                </td>
+                            </tr>
+                            <%})%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <%- include("footer") %>
+</body>
+
+<script>
+
+    // function searchDiv(div) {
+    //     var input = document.getElementById('searchbox');
+    //     var filter = input.value.toLowerCase();
+    //     var trs = document.getElementById(div).getElementsByClassName('tr');
+    //     for (i = 0; i < trs.length; i++) {
+    //         if (trs[i].innerText.toLowerCase().includes(filter)) {
+    //             trs[i].style.display = "";
+    //         } else {
+    //             trs[i].style.display = "none";
+    //         }
+    //     }
+    // }
+
+    setTimeout(() => {
+        let options = {
+            "destroy": true,
+            "bLengthChange": false,
+            "bInfo": false,
+            "bPaginate": true,
+            "searching": true,
+            "order": []
+        }
+        $('#moviesTbl').dataTable(options);
+
+        $('#seriesTbl').dataTable(options);
+
+        $('#isroTbl').dataTable(options);
+    }, 50);
+
+    function swapDiv(divA, divB, divC) {
+        document.getElementById(divA + 'Btn').classList.add('active');
+        document.getElementById(divB + 'Btn').classList.remove('active');
+        document.getElementById(divC + 'Btn').classList.remove('active');
+        document.getElementById(divA).style.display = '';
+        // document.getElementById('searchbox').setAttribute(`onkeyup`, `searchDiv('${divA}Tbl')`);
+        document.getElementById(divB).style.display = 'none';
+        document.getElementById(divC).style.display = 'none';
+    }
+
+    function sortTable(n, div) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById(div);
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc";
+        /*Make a loop that will continue until no switching has been done:*/
+        while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /*Loop through all table rows (except the  first, which contains table headers):*/
+            for (i = 1; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /*Get the two elements you want to compare, one from current row and one from the next:*/
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                /*check if the two rows should switch place, based on the direction, asc or desc:*/
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true; break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true; break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                //Each time a switch is done, increase this count by 1:
+                switchcount++;
+            } else {
+                /*If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.*/
+                if (switchcount == 0 && dir == "asc") { dir = "desc"; switching = true; }
+            }
+        }
+    }
+
+</script>
+
+</html>

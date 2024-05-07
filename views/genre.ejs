@@ -14,7 +14,7 @@
     <style>
         .mainBox {
             width: 98%;
-            height: 83vh;
+            height: 84vh;
             margin-top: 10px;
             margin-bottom: 50px;
             border-radius: 10px;
@@ -30,12 +30,11 @@
             position: relative !important;
             border-radius: 10px !important;
             box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-            transition: all !important;
-            transition: 0.9s !important;
+            transition: all 1s ease-in-out !important;
         }
 
         div.item:hover {
-            transform: scale(1.125) !important;
+            transform: scale(1.125) rotateY(360deg) !important;
             z-index: 5;
             box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
         }
@@ -53,6 +52,16 @@
             max-width: 100% !important;
         }
 
+        #info {
+            width: 100% !important;
+            height: 35% !important
+        }
+
+        #iframe {
+            width: 100% !important;
+            height: 63% !important;
+        }
+
         .modThumb:hover {
             box-shadow: cyan 0px 0px 0px 3px;
         }
@@ -63,8 +72,8 @@
             font-weight: bold;
             padding: 4px;
             position: absolute !important;
-            left: 4px !important;
-            top: 10px !important;
+            left: 5px !important;
+            top: 15px !important;
             text-align: center;
             border-radius: 20px;
             transform: rotate(-45deg);
@@ -78,8 +87,8 @@
             font-weight: bold;
             padding: 4px;
             position: absolute !important;
-            left: 50px !important;
-            top: 30px !important;
+            left: 55px !important;
+            top: 35px !important;
             text-align: center;
             border-radius: 20px;
             transform: rotate(-45deg);
@@ -232,14 +241,14 @@
                     <input type="text" class="form-control border-right-0 border" id="searchbox" placeholder="Search Here...!" onkeyup="searchDiv()" />
                 </div>
                 <div class="select">
-                    <p style="vertical-align: middle; font-size: 20px;"><strong>Genres : </strong>
+                    <p style="vertical-align: middle; font-size: 20px; margin-left: 20px;"><strong>Genres : </strong>
                         <label id="files">
                             <%=genres.length%>
                         </label>
                     </p>
                 </div>
                 <div class="select">
-                    <p style="vertical-align: middle; font-size: 20px;"><strong>Listed Here : </strong>
+                    <p style="vertical-align: middle; font-size: 20px; margin-left: 20px;"><strong>Listed Here : </strong>
                         <label id="files">
                             <%=movseries.length%>
                         </label>
@@ -276,7 +285,7 @@
                                         <button type="button" class="btn btn-outline-danger" onclick="CloseModel()"><i class="bi bi-x-square"></i></button>
                                     </div>
                                     <div class="modal-body">
-                                        <h1 id="Desc"></h1>
+                                        <div id="Desc"></div>
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +317,7 @@
         if (data.Episodes) {
             str += '<span class="ribbon1"><i class="bi bi-collection-play-fill" style="color: azure;"></i> ' + data.Episodes + '</span>';
         }
-        str += '<div style="padding:10px; margin-left:10px; border: 2px solid gray; border-radius: 10px; width:29vw;">';
+        str += '<div style="padding:10px; margin-left:10px; border: 2px solid gray; border-radius: 10px; width:29vw;"><div id="info">';
         str += '<h6>Genre : <span style="color:tomato;">' + data.Genre + '</span></h6>';
         if (data.Language) {
             str += '<h6>Language : <span style="color:tomato;">' + data.Language + '</span></h6>';
@@ -323,7 +332,8 @@
         if (data.Franchise) {
             str += '<h6>Franchise : <span style="color:tomato;">' + data.Franchise + '</span></h6>';
         }
-        str += '<iframe id="iframe" class="modThumb" src="https://www.youtube.com/embed/' + data.Trailer + '?autoplay=1&mute=1" height="65%" width="100%" title="YouTube Link"></iframe>'
+        str += '</div>';
+        str += '<div id="iframe"><iframe class="modThumb" src="https://www.youtube.com/embed/' + data.Trailer + '?autoplay=1&mute=1" height="100%" width="100%" title="YouTube Link"></iframe></div>'
         str += '</div></div>';
         document.getElementById("title").innerHTML = title;
         document.getElementById("Desc").innerHTML = str;
