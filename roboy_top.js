@@ -86,6 +86,8 @@ router.route("/").get(mainjs.homepage);
 router.route("/reg_user").get(utils.get_reg_user);
 router.route("/reg_user").post(utils.post_reg_user);
 
+router.route("/profile").get(utils.get_user_profile)
+
 router.route("/login").post(utils.login);
 router.route("/logout").get(utils.logout);
 

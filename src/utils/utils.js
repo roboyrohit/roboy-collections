@@ -93,7 +93,7 @@ exports.getQuery = async function (req, table, key, split) {
 }
 
 exports.get_reg_user = async function (req, res, next) {
-    res.render('register')
+    res.render('register');
 }
 
 exports.post_reg_user = async function (req, res, next) {
@@ -148,6 +148,15 @@ exports.post_reg_user = async function (req, res, next) {
     //     return res.json({ rVal: 1, uid: result.insertId });
 
     // } catch (err) { return next(err); }
+}
+
+exports.get_user_profile = async function (req, res, next) {
+    let { session } = req;
+    if(!session.LoginID) { res.render('403')};
+    var userDetails =  await req.querySync('SELECT FirstName, LastName, Email, Phone FROM users WHERE UserID = ?;', [session.LoginID])
+    userDetails = JSON.parse(JSON.stringify(userDetails))[0];
+    // console.log('User Details :', userDetails);
+    res.render('profile', { session, userDetails });
 }
 
 exports.reg_user_mongodb = async function (req, res, next) {
